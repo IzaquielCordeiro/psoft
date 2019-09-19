@@ -22,7 +22,7 @@ public class UserController
         this.userService = userService;
     }
 
-    @PostMapping("/api/usuarios")
+    @PostMapping("/usuarios")
     public ResponseEntity<UserDTO> addUser (@RequestBody User u)
     {
         return new ResponseEntity(userService.addUser(u), HttpStatus.CREATED);

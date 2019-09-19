@@ -5,6 +5,8 @@ import com.psoft.lab2.entities.User;
 import com.psoft.lab2.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService
 {
@@ -21,5 +23,15 @@ public class UserService
         UserDTO responseUser = new UserDTO(u);
         userDAO.save(u);
         return responseUser;
+    }
+
+    public Optional<User> getUser(String email)
+    {
+        return userDAO.findById(email);
+    }
+
+    public void deleteUser(User user)
+    {
+        userDAO.deleteById(user.getEmail());
     }
 }
