@@ -6,6 +6,7 @@ import com.psoft.lab2.services.JWTService;
 import com.psoft.lab2.services.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,9 @@ public class LoginController
 {
     private final String TOKEN_KEY = "raquel eh top";
 
+    @Autowired
     private UserService userService;
+    @Autowired
     private JWTService jwtService;
 
     public LoginController(UserService userService, JWTService jwtService)
