@@ -1,7 +1,7 @@
 package com.psoft.lab2.entities;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.psoft.lab2.entities.DTOs.DisciplineDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,15 +18,16 @@ public class Discipline
     private String comments;
     private int likes;
 
-    public Discipline(){ super();};
+    public Discipline(){ super();}
 
-    public Discipline(DisciplineDTO disciplineDTO)
+    public Discipline(@JsonProperty("name") String name)
     {
-        this.name = disciplineDTO.getName();
+        this.name = name;
         this.comments = "";
+        this.note = 0.0;
+        this.likes = 0;
     }
 
-    @JsonCreator
     public Discipline(String name, double note, String comments, int likes)
     {
         this.name = name;

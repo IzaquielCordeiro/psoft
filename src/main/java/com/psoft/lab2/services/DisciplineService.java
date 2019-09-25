@@ -1,14 +1,12 @@
 package com.psoft.lab2.services;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.psoft.lab2.entities.DTOs.DisciplineDTO;
 import com.psoft.lab2.entities.Discipline;
 import com.psoft.lab2.repositories.DisciplineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -21,7 +19,7 @@ import java.util.Optional;
 @Service
 public class DisciplineService
 {
-    @Autowired
+    //@Autowired
     DisciplineRepository disciplineRepository;
 
     public DisciplineService(DisciplineRepository disciplineRepository)
@@ -32,17 +30,20 @@ public class DisciplineService
     @PostConstruct
     public void initDiscipline()
     {
-        ObjectMapper mapper = new ObjectMapper();
-        TypeReference<List<DisciplineDTO>> typeReference = new TypeReference<List<DisciplineDTO>>(){};
-        InputStream inputStream = ObjectMapper.class.getResourceAsStream("/src/main/resources/json/disciplines.json");
+        if(disciplineRepository.count() == 0)
         {
+            ObjectMapper mapper = new ObjectMapper();
+            TypeReference<List<Discipline>> typeReference = new TypeReference<List<Discipline>>() {};
+            InputStream inputStream = ObjectMapper.class.getResourceAsStream("/json/disciplines.json");
             try
             {
-                List<DisciplineDTO> disciplines = mapper.readValue(inputStream, typeReference);
-                addAllDisciplines(disciplines);
+                List<Discipline> disciplines = mapper.readValue(inputStream, typeReference);
+                disciplineRepository.saveAll(disciplines);
+                System.out.println("Disciplines hat been reated");
             }
             catch (IOException ioe)
             {
+                System.out.println("Lascou");
                 System.out.printf(ioe.getMessage());
             }
         }
@@ -66,14 +67,14 @@ public class DisciplineService
         return disciplineDTOList;
     }
 
-    public List<Discipline> addAllDisciplines(List<DisciplineDTO> dtoList)
-    {
-        List<Discipline> disciplines = new ArrayList<>();
-
-        for (DisciplineDTO dto: dtoList) disciplines.add(new Discipline(dto));
-
-        return disciplineRepository.saveAll(disciplines);
-    }
+//    public List<Discipline> addAllDisciplines(List<DisciplineDTO> dtoList)
+//    {
+//        List<Discipline> disciplines = new ArrayList<>();
+//
+//        for (DisciplineDTO dto: dtoList) disciplines.add(new Discipline(dto));
+//
+//        return disciplineRepository.saveAll(disciplines);
+//    }
 
     public boolean like(Long id)
     {

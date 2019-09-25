@@ -25,12 +25,12 @@ public class DisciplinesController
         this.disciplineService = disciplineService;
     }
 
-    @PostMapping("/addAll")
-    public ResponseEntity<List<Discipline>> addDisciplines(@RequestBody List<DisciplineDTO> disciplineList)
-    {
-        List<Discipline> disciplines = disciplineService.addAllDisciplines(disciplineList);
-        return new ResponseEntity(disciplines, HttpStatus.CREATED);
-    }
+//    @PostMapping("/addAll")
+//    public ResponseEntity<List<Discipline>> addDisciplines(@RequestBody List<DisciplineDTO> disciplineList)
+//    {
+//        List<Discipline> disciplines = disciplineService.addAllDisciplines(disciplineList);
+//        return new ResponseEntity(disciplines, HttpStatus.CREATED);
+//    }
 
     @GetMapping("/")
     public ResponseEntity<List<DisciplineDTO>> getDisciplines() throws ServletException

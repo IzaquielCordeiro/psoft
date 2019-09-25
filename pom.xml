@@ -15,7 +15,7 @@
 	<description>Projeto de Laboratório 2</description>
 
 	<properties>
-		<java.version>12</java.version>
+		<java.version>10</java.version>
 	</properties>
 
 	<dependencies>
@@ -58,6 +58,11 @@
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
 		<dependency>
